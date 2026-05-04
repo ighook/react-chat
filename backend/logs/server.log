@@ -16,3 +16,21 @@
 [2026-05-04 15:08:45:331259][http-nio-8080-exec-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
 [2026-05-04 15:08:46:331858][http-nio-8080-exec-5] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5bdf2f85
 [2026-05-04 15:08:46:331859][http-nio-8080-exec-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[2026-05-04 17:25:55:8561015][File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+[2026-05-04 17:25:55:8561025][Thread-1] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+[2026-05-04 17:25:55:8561026][tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+[2026-05-04 17:25:55:8561033][tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+[2026-05-04 17:25:55:8561033][Thread-1] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+[2026-05-04 17:25:55:8561041][Thread-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+[2026-05-04 17:25:55:8561051][Thread-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+[2026-05-04 17:25:55:8561186][restartedMain] INFO  c.y.reactchat.ReactchatApplication - Starting ReactchatApplication using Java 21.0.10 with PID 46392 (C:\Users\ighook\Desktop\projects\react-chat\backend\build\classes\java\main started by ighook in C:\Users\ighook\Desktop\projects\react-chat\backend)
+[2026-05-04 17:25:55:8561186][restartedMain] INFO  c.y.reactchat.ReactchatApplication - No active profile set, falling back to 1 default profile: "default"
+[2026-05-04 17:25:55:8561468][restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+[2026-05-04 17:25:55:8561470][restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[2026-05-04 17:25:55:8561471][restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+[2026-05-04 17:25:55:8561471][restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.21]
+[2026-05-04 17:25:55:8561481][restartedMain] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 292 ms
+[2026-05-04 17:25:55:8561594][restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[2026-05-04 17:25:55:8561596][restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+[2026-05-04 17:25:55:8561598][restartedMain] INFO  c.y.reactchat.ReactchatApplication - Started ReactchatApplication in 0.461 seconds (process running for 8562.33)
+[2026-05-04 17:25:55:8561598][restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
