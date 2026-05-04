@@ -7,3 +7,5 @@
 - React + Spring Boot 기반
 - AWS EC2 서버 배포 및 Jenkins를 통한 CI/CD 자동 빌드 구성
 - Codex를 활용한 개발 생산성 향상
+
+<img width="1461" height="927" alt="image" src="https://github.com/user-attachments/assets/54be518b-14f4-44d0-9d14-6c92590d74f8" />
