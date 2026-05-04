@@ -156,7 +156,7 @@ function App() {
   useEffect(() => {
     // 웹 소켓
     const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-    const port = window.location.hostname === "localhost" ? 8080 : 80;
+    const port = window.location.hostname === "localhost" ? 8080 : 8083;
     const socket = new WebSocket(
       `${protocol}://${window.location.hostname}:${port}/ws/chat`,
     );
