@@ -155,11 +155,14 @@ function App() {
 
   useEffect(() => {
     // 웹 소켓
+    const isLocal = window.location.hostname === "localhost";
     const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-    const port = window.location.hostname === "localhost" ? 8080 : 8083;
-    const socket = new WebSocket(
-      `${protocol}://${window.location.hostname}:${port}/ws/chat`,
-    );
+    const socketUrl = isLocal
+      ? "ws://localhost:8080/ws/chat"
+      : `${protocol}://${window.location.host}/ws/chat`;
+
+    const socket = new WebSocket(socketUrl);
+
     websocketRef.current = socket;
 
     socket.onmessage = (event) => {
