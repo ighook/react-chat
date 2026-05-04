@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yjb.reactchat.mapper.ChatMessageMapper">
+    <insert id="insert" parameterType="map">
+        INSERT INTO tb_chat_message (user_id, room_id, message, created_at)
+        VALUES (#{userId}, #{roomId}, #{message}, NOW());
+    </insert>
+
+    <select id="selectAll" parameterType="map" resultType="com.yjb.reactchat.dto.ChatMessageDto">
+        SELECT tu.name AS sender, m.message, m.created_at
+        FROM tb_chat_message m
+        JOIN tb_user tu ON m.user_id = tu.id
+        WHERE room_id = #{roomId}
+        ORDER BY created_at DESC
+    </select>
+</mapper>

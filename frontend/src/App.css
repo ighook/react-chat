@@ -1,0 +1,141 @@
+.app-shell {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  background: #f4f6f8;
+  color: #15202b;
+}
+
+.side-menu {
+  min-height: 100svh;
+  padding: 24px 16px;
+  background: #101820;
+  color: #f7fafc;
+  border-right: 1px solid #223241;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px 28px;
+}
+
+.brand-mark,
+.menu-icon {
+  width: 36px;
+  height: 36px;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 8px;
+  font-weight: 800;
+}
+
+.brand-mark {
+  background: #2dd4bf;
+  color: #071012;
+}
+
+.brand strong,
+.brand span {
+  display: block;
+}
+
+.brand strong {
+  font-size: 1rem;
+}
+
+.brand span {
+  margin-top: 2px;
+  color: #9fb0c1;
+  font-size: 0.85rem;
+}
+
+.menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 8px;
+  background: rgb(255 255 255 / 0.04);
+}
+
+.menu-nav label {
+  width: 100%;
+  font-weight: 500;
+  text-align: center;
+}
+
+.menu-nav button {
+  width: 100%;
+  padding: 8px 12px;
+  margin: 8px 0px;
+  border: none;
+  border-radius: 4px;
+  background: #223241;
+  color: #72ff79;
+  font-weight: 500;
+  text-align: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.main-page {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  overflow: hidden;
+  padding: 32px;
+  background:
+    linear-gradient(rgb(15 23 42 / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(15 23 42 / 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.room-list {
+  margin-bottom: 24px;
+}
+
+.room-list,
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.user-item {
+  cursor: pointer;
+}
+
+.room-item,
+.user-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: #fff;
+  background-color: #223241;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.room-item button,
+.user-item button {
+  width: auto;
+  margin: 0;
+  padding: 4px 8px;
+  background: #223241;
+  color: #ff2323;
+  font-weight: 500;
+  text-align: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}

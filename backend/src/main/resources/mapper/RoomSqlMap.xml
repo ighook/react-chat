@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yjb.reactchat.mapper.RoomMapper">
+    <insert id="insert" parameterType="map">
+        INSERT INTO tb_chat_room (id, name, is_public, created_at, updated_at)
+        VALUES (#{id}, #{name}, #{isPublic}, NOW(), NOW());
+    </insert>
+
+    <select id="selectAll" parameterType="map" resultType="com.yjb.reactchat.dto.ChatRoomDto">
+        SELECT m.id, m.name, m.is_public
+        , CASE WHEN tcrp.user_id IS NOT NULL THEN 1 ELSE 0 END AS is_joined
+        FROM tb_chat_room m
+        LEFT JOIN tb_chat_room_participant tcrp ON m.id = tcrp.room_id AND tcrp.user_id = #{userId}
+    </select>
+
+    <delete id="delete" parameterType="map">
+        DELETE
+        FROM tb_chat_room
+        WHERE id = #{id}
+    </delete>
+
+    <insert id="insertParticipant" parameterType="map">
+        INSERT INTO tb_chat_room_participant (room_id, user_id)
+        VALUES (#{roomId}, #{userId});
+    </insert>
+</mapper>

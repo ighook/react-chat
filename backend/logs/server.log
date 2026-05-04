@@ -1,0 +1,12 @@
+[2026-05-04 15:03:14:540][restartedMain] INFO  c.y.reactchat.ReactchatApplication - Starting ReactchatApplication using Java 21.0.10 with PID 46392 (C:\Users\ighook\Desktop\projects\react-chat\backend\build\classes\java\main started by ighook in C:\Users\ighook\Desktop\projects\react-chat\backend)
+[2026-05-04 15:03:14:547][restartedMain] INFO  c.y.reactchat.ReactchatApplication - No active profile set, falling back to 1 default profile: "default"
+[2026-05-04 15:03:14:580][restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2026-05-04 15:03:14:580][restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2026-05-04 15:03:15:1357][restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+[2026-05-04 15:03:15:1366][restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[2026-05-04 15:03:15:1368][restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+[2026-05-04 15:03:15:1368][restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.21]
+[2026-05-04 15:03:15:1396][restartedMain] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 816 ms
+[2026-05-04 15:03:16:1873][restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[2026-05-04 15:03:16:1887][restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+[2026-05-04 15:03:16:1890][restartedMain] INFO  c.y.reactchat.ReactchatApplication - Started ReactchatApplication in 1.742 seconds (process running for 2.622)

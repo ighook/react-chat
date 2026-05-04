@@ -1,0 +1,45 @@
+.my-chat,
+.other-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.my-chat {
+  align-items: flex-end;
+}
+
+.other-chat {
+  align-items: flex-start;
+}
+
+.sender {
+  max-width: 72%;
+  color: #64748b;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.content {
+  max-width: 72%;
+  padding: 9px 12px;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.my-chat .content {
+  border-bottom-right-radius: 4px;
+  background: #0f766e;
+  color: #ffffff;
+}
+
+.other-chat .content {
+  border-bottom-left-radius: 4px;
+  background: #e2e8f0;
+  color: #0f172a;
+}
