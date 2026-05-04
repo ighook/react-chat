@@ -13,6 +13,6 @@
         FROM tb_chat_message m
         JOIN tb_user tu ON m.user_id = tu.id
         WHERE room_id = #{roomId}
-        ORDER BY created_at DESC
+        ORDER BY idx ASC
     </select>
 </mapper>

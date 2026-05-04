@@ -71,7 +71,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     public void sendChatRoomList(List<ChatRoomDto> chatRooms) throws IOException {
         Map<String, Object> message = new HashMap<>();
-        message.put("type", "ROOM_LIST");
+        message.put("type", "CHAT_ROOM_LIST");
         message.put("data", chatRooms);
 
         String json = objectMapper.writeValueAsString(message);
@@ -79,6 +79,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         for (WebSocketSession session : sessions) {
             if (session.isOpen()) {
                 session.sendMessage(new TextMessage(json));
+                logger.info("방 목록 갱신");
             }
         }
     }

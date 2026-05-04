@@ -14,7 +14,7 @@ function App() {
   const [rooms, setRooms] = useState([]);
   const [users, setUsers] = useState([]);
   const [userClientList, setUserClientList] = useState([]);
-  const [chatMessages, setChatMessages] = useState([]);
+  const [receivedChatMessage, setReceivedChatMessage] = useState(null);
 
   const createRoom = () => {
     const nextRoomNumber = rooms.length + 1;
@@ -23,13 +23,7 @@ function App() {
       id: crypto.randomUUID(),
       name: `Room ${nextRoomNumber}`,
       isPublic: true,
-      // position: {
-      //   x: 40 + ((nextRoomNumber - 1) % 3) * 70,
-      //   y: 40 + ((nextRoomNumber - 1) % 3) * 54,
-      // },
     };
-
-    setRooms([...rooms, newRoom]);
 
     fetch(`/api/room/create`, {
       method: "POST",
@@ -162,25 +156,29 @@ function App() {
   useEffect(() => {
     // 웹 소켓
     const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+    const port = window.location.hostname === "localhost" ? 8080 : 80;
     const socket = new WebSocket(
-      `${protocol}://${window.location.host}/ws/chat`,
+      `${protocol}://${window.location.hostname}:${port}/ws/chat`,
     );
     websocketRef.current = socket;
 
     socket.onmessage = (event) => {
+      console.log("🚀 ~ App ~ event:", event);
       try {
         const message = JSON.parse(event.data);
 
-        if (message.type == "ROOM_LIST") {
+        if (message.type == "CHAT_ROOM_LIST") {
           setRooms(message.data);
+          console.log("1");
         } else if (message.type == "USER_LIST") {
           setUsers(message.data);
-        } else if (message.type == "RECEIVE_CHAT") {
-          console.log("🚀 ~ App ~ message.type:", message.data);
-          setChatMessages((prevChatMessages) => [
-            ...prevChatMessages,
-            JSON.parse(message.data),
-          ]);
+        } else if (
+          message.type == "RECEIVE_CHAT" ||
+          message.type == "CHAT_MESSAGE"
+        ) {
+          setReceivedChatMessage(
+            message.data ? JSON.parse(message.data) : message,
+          );
         }
       } catch {
         console.log("WebSocket message:", event.data);
@@ -294,8 +292,9 @@ function App() {
             <UserClient
               key={user.id}
               user={user}
+              rooms={rooms}
               websocketRef={websocketRef}
-              chatMessages={chatMessages}
+              receivedChatMessage={receivedChatMessage}
               onClose={() => closeUserClient(user.id)}
             />
           ))}

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "./UserClient.css";
 import ChatMessageBox from "./ChatMessageBox";
 
@@ -10,16 +10,33 @@ const minSize = {
 const resizeHandles = ["n", "e", "s", "w", "ne", "se", "sw", "nw"];
 let highestZIndex = 1;
 
-function UserClient({ user, websocketRef, chatMessages, onClose }) {
-  const [rooms, setRooms] = useState([]);
-  const [selectedRoom, setSelectedRoom] = useState(null);
+function UserClient({
+  user,
+  rooms,
+  websocketRef,
+  receivedChatMessage,
+  onClose,
+}) {
+  const [selectedRoomId, setSelectedRoomId] = useState(null);
+  const [chatMessages, setChatMessages] = useState([]);
   const [message, setMessage] = useState("");
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [size, setSize] = useState(minSize);
   const [zIndex, setZIndex] = useState(highestZIndex);
-  const [chatList, setChatList] = useState([]);
-  const actionRef = useRef(null);
+  const [clientRooms, setClientRooms] = useState(() => rooms ?? []);
   const chatMessagesRef = useRef(null);
+  const actionRef = useRef(null);
+  const receivedChatMessageRef = useRef(null);
+
+  const roomSignature = useMemo(
+    () => (Array.isArray(rooms) ? rooms.map((room) => room.id).join("|") : ""),
+    [rooms],
+  );
+
+  const selectedRoom = useMemo(
+    () => clientRooms.find((room) => room.id === selectedRoomId) ?? null,
+    [clientRooms, selectedRoomId],
+  );
 
   const bringToFront = () => {
     highestZIndex += 1;
@@ -157,7 +174,8 @@ function UserClient({ user, websocketRef, chatMessages, onClose }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        setRooms(data.data);
+        setChatMessages([]);
+        setClientRooms(data.data);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -190,9 +208,9 @@ function UserClient({ user, websocketRef, chatMessages, onClose }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        setChatList(data.data);
+        console.log("🚀 ~ joinRoom ~ data:", data.data);
+        setChatMessages(data.data);
         scrollChatToBottom();
-        console.log("🚀 ~ joinRoom ~ data.data:", data.data);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -214,9 +232,7 @@ function UserClient({ user, websocketRef, chatMessages, onClose }) {
     })
       .then((response) => response.json())
       .then(() => {
-        console.log("참가");
-
-        setRooms((prevRooms) =>
+        setClientRooms((prevRooms) =>
           prevRooms.map((r) => (r.id === room.id ? { ...r, joined: true } : r)),
         );
       })
@@ -227,17 +243,38 @@ function UserClient({ user, websocketRef, chatMessages, onClose }) {
 
   useEffect(() => {
     selectAllChatRooms();
-  }, [selectAllChatRooms]);
+  }, [selectAllChatRooms, roomSignature]);
 
-  const selectedRoomMessages = [
-    ...chatList,
-    ...chatMessages
-      .filter((chatMessage) => chatMessage.roomId === selectedRoom?.id)
-      .map((chatMessage) => ({
-        ...chatMessage,
-        sender: chatMessage.sender,
-      })),
-  ];
+  useEffect(() => {
+    if (
+      !receivedChatMessage ||
+      receivedChatMessageRef.current === receivedChatMessage
+    ) {
+      return;
+    }
+
+    receivedChatMessageRef.current = receivedChatMessage;
+
+    if (receivedChatMessage.roomId !== selectedRoom?.id) {
+      return;
+    }
+
+    queueMicrotask(() => {
+      setChatMessages((prevChatMessages) => {
+        const exists = prevChatMessages.some(
+          (chatMessage) =>
+            chatMessage.sender === receivedChatMessage.sender &&
+            chatMessage.message === receivedChatMessage.message,
+        );
+
+        if (exists) {
+          return prevChatMessages;
+        }
+
+        return [...prevChatMessages, receivedChatMessage];
+      });
+    });
+  }, [receivedChatMessage, selectedRoom?.id]);
 
   const scrollChatToBottom = () => {
     const chatMessagesElement = chatMessagesRef.current;
@@ -248,10 +285,6 @@ function UserClient({ user, websocketRef, chatMessages, onClose }) {
 
     chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
   };
-
-  useEffect(() => {
-    scrollChatToBottom();
-  }, [selectedRoomMessages]);
 
   useEffect(() => {
     scrollChatToBottom();
@@ -291,18 +324,18 @@ function UserClient({ user, websocketRef, chatMessages, onClose }) {
 
       <div className="user-client-body">
         <aside className="client-room-list" aria-label="Chat rooms">
-          {Array.isArray(rooms) && rooms.length > 0 ? (
-            rooms.map((room) => (
+          {Array.isArray(clientRooms) && clientRooms.length > 0 ? (
+            clientRooms.map((room) => (
               <button
                 key={room.id}
                 type="button"
                 className={
-                  selectedRoom?.id === room.id
+                  selectedRoomId === room.id
                     ? "client-room-item active"
                     : "client-room-item"
                 }
                 onClick={() => {
-                  setSelectedRoom(room);
+                  setSelectedRoomId(room.id);
                   joinRoom(room);
                 }}
               >
@@ -325,7 +358,7 @@ function UserClient({ user, websocketRef, chatMessages, onClose }) {
                 {/* <span>{selectedRoom.isPublic ? "Public" : "Private"}</span> */}
               </div>
               <div className="client-chat-messages" ref={chatMessagesRef}>
-                {selectedRoomMessages.map((chatMessage, index) => (
+                {chatMessages.map((chatMessage, index) => (
                   <ChatMessageBox
                     key={chatMessage.id ?? `${chatMessage.userName}-${index}`}
                     userName={user.name}
