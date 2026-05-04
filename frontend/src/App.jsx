@@ -161,7 +161,10 @@ function App() {
 
   useEffect(() => {
     // 웹 소켓
-    const socket = new WebSocket("ws://localhost:8080/ws/chat");
+    const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+    const socket = new WebSocket(
+      `${protocol}://${window.location.host}/ws/chat`,
+    );
     websocketRef.current = socket;
 
     socket.onmessage = (event) => {
