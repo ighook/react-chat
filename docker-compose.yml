@@ -2,9 +2,7 @@ version: "3.8"
 services:
   backend:
     build: ./backend
-    ports:
-      - "3000:3000"
   frontend:
     build: ./frontend
     ports:
-      - "8080:80"
+      - "8081:8081"
