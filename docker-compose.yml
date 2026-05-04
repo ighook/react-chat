@@ -5,4 +5,4 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "8081:8081"
+      - "8081:80"
