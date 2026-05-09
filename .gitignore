@@ -1,4 +1,4 @@
 
 # Spring
-/backend/application.properties
-/backend/logs
+backend/logs
+backend/src/main/resources/application.properties
