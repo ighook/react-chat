@@ -64,30 +64,6 @@ function App() {
       });
   };
 
-  const createUser = () => {
-    const randomName = uniqueNamesGenerator({
-      dictionaries: [adjectives, animals],
-      separator: " ",
-      style: "capital",
-    });
-
-    fetch("/api/user/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: crypto.randomUUID(),
-        name: randomName,
-      }),
-    })
-      .then((response) => response.json())
-      .then(() => {})
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
   const selectAllChatRooms = () => {
     fetch(`/api/room/selectAll`, {
       method: "POST",
@@ -121,6 +97,30 @@ function App() {
       });
   };
 
+  const createUser = () => {
+    const randomName = uniqueNamesGenerator({
+      dictionaries: [adjectives, animals],
+      separator: " ",
+      style: "capital",
+    });
+
+    fetch("/api/user/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: crypto.randomUUID(),
+        name: randomName,
+      }),
+    })
+      .then((response) => response.json())
+      .then(() => {})
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
   const deleteUser = (userId) => {
     fetch(`/api/user/delete`, {
       method: "POST",
@@ -134,6 +134,8 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+
+        setUserClientList(userClientList.filter((user) => user.id !== userId));
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -267,6 +269,7 @@ function App() {
                     {user.name}
                     <button
                       type="button"
+                      className="user-delete-button"
                       onClick={(event) => {
                         event.stopPropagation();
                         deleteUser(user.id);
