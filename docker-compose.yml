@@ -10,7 +10,6 @@ services:
       - "8082:80"
   nginx:
     image: nginx
-    container_name: nginx
     ports:
       - "80:80"
     volumes:
